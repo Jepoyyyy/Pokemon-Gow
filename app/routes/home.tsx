@@ -168,41 +168,36 @@ export default function HomePage() {
         })}
       </div>
 
-      {}
+      
       <div className="flex items-center justify-center gap-4 pb-8">
-        <button
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
-          className="
-            px-3 py-3 rounded-lg font-semibold text-lg
-            hover:bg-red-400/20
-            border-3 dark:border-white border-black
-            dark:hover:bg-white/20
-            text-white transition-colors duration-200
-            disabled:opacity-50 disabled:cursor-not-allowed
-            disabled:hover:bg-blue-500 dark:disabled:hover:bg-blue-600"
-        >
-         <ArrowBigLeft className="text-black dark:text-white" />
-        </button>
-        <div className=" text-center">
-        <p className="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300">
-          Page {currentPage} of {totalPages}
-        </p>
-      </div>
-        <button
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-          className="
-            px-3 py-3 rounded-lg font-semibold text-lg
-            hover:bg-red-400/20
-            border-3 dark:border-white border-black
-            dark:hover:bg-white/20
-            text-white transition-colors duration-200
-            disabled:opacity-50 disabled:cursor-not-allowed
-            disabled:hover:bg-blue-500 dark:disabled:hover:bg-blue-600">
-        <ArrowBigRight className='text-black dark:text-white'></ArrowBigRight>
-        </button>
-      </div>
+  <button
+    onClick={handlePrevious}
+    disabled={currentPage === 1}
+    className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg font-semibold text-sm
+      hover:bg-red-400/20 border-2 dark:border-white border-black
+      dark:hover:bg-white/20 transition-colors duration-200
+      disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    <ArrowBigLeft className="text-black dark:text-white w-5 h-5" />
+    <span className="text-black dark:text-white">Prev</span>
+  </button>
+
+  <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 min-w-[100px] text-center">
+    Page {currentPage} of {totalPages}
+  </p>
+
+  <button
+    onClick={handleNext}
+    disabled={currentPage === totalPages}
+    className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg font-semibold text-sm
+      hover:bg-red-400/20 border-2 dark:border-white border-black
+      dark:hover:bg-white/20 transition-colors duration-200
+      disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    <span className="text-black dark:text-white">Next</span>
+    <ArrowBigRight className="text-black dark:text-white w-5 h-5" />
+  </button>
+</div>
     </div>
   );
 }

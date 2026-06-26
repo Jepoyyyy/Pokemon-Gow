@@ -51,7 +51,7 @@ function PokemonCard({
           {/* Sprite */}
           <div className="relative w-24 h-24">
             <div className={`
-              absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-300
+                absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-300
               ${isMyPokemon ? 'bg-green-300 dark:bg-green-700' : 'bg-blue-200 dark:bg-blue-900'}
             `} />
             <img
@@ -74,8 +74,8 @@ function PokemonCard({
           <div className={`
             capitalize truncate w-full leading-tight
             ${isMyPokemon
-              ? 'text-xs text-gray-500 dark:text-gray-400 mt-0.5'
-              : 'text-sm font-semibold text-gray-800 dark:text-gray-100 mt-2'
+              ? 'text-md text-gray-500 dark:text-gray-400 mt-0.5'
+              : 'text-lg font-semibold text-gray-800 dark:text-gray-100 mt-2'
             }
           `}>
             {name}
@@ -83,7 +83,7 @@ function PokemonCard({
 
           {/* Dex number */}
           <div className={`
-            text-xs font-mono mt-1 px-2 py-0.5 rounded-full
+            text-md font-mono text-bold mt-1 px-2 py-0.5 rounded-full
             ${isMyPokemon
               ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400'
               : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'

@@ -19,7 +19,7 @@ const handleToggle = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex items-center justify-between px-5 py-3">
+    <div className="flex items-center justify-between px-5 py-3 border border-b-black">
       <Link
         to="/home"
         className="no-underline hover:opacity-80 transition-opacity"
@@ -28,7 +28,7 @@ const handleToggle = () => {
       </Link>
 
       <div className="flex items-center gap-3">
-        <span className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">
+        <span className="text-lg text-black dark:white uppercase tracking-wider font-semibold">
           Catch & Collect!
         </span>
 
