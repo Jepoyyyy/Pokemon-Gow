@@ -56,7 +56,7 @@ export function MyPokemonProvider({ children }: { children: ReactNode }) {
     addPokemon,
     removePokemon,
     getPokemonById,
-    totalCaught: myPokemon.length,
+    totalCaught: new Set(myPokemon.map(p => p.id)).size,
   };
 
   return (

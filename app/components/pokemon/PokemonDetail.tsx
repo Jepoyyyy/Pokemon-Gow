@@ -1,8 +1,5 @@
-
-
 import { Link } from 'react-router';
 import { getSpriteUrl } from '../../utils/spriteUrl';
-
 
 interface PokemonDetailProps {
   id: number;
@@ -46,6 +43,13 @@ const typeColorMap: Record<string, string> = {
   normal: 'bg-[var(--color-type-normal)] text-white',
 };
 
+const statColor: Record<string, string> = {
+  hp:      'from-green-400 to-green-500',
+  attack:  'from-red-400 to-orange-400',
+  defense: 'from-blue-400 to-blue-500',
+  speed:   'from-yellow-400 to-amber-400',
+};
+
 export default function PokemonDetail({
   id,
   name,
@@ -62,186 +66,203 @@ export default function PokemonDetail({
   evolutionChain,
 }: PokemonDetailProps) {
   const maxStat = 255;
+  const isMyPokemon = variant === 'myPokemon';
+  const primaryType = types[0];
+  const typeBg = typeColorMap[primaryType] ?? '';
 
   return (
-    <div className="w-full">
-      {}
-      <div className="text-center mb-8 animate-[fade-in_0.3s_ease-out] ">
-        {}
-        <div className="relative w-48 h-48 mx-auto mb-6 ">
-          {}
-          <div className="absolute inset-0  rounded-2xl" />
-          {}
+    <div className="w-full space-y-8">
+
+      {/* Hero */}
+      <div className="text-center animate-[fade-in_0.3s_ease-out]">
+        <div className="relative w-48 h-48 mx-auto mb-4">
+          {/* Glow */}
+          <div className={`absolute inset-4 rounded-full blur-2xl opacity-30 ${typeBg}`} />
           <img
             src={sprite}
             alt={customName || name}
-            className="relative z-10 w-full h-full object-contain"
+            className="relative z-10 w-full h-full object-contain drop-shadow-xl"
           />
         </div>
 
-        <div className='h-0.5 bg-black dark:bg-white w-full'></div>
-
-        {variant === 'myPokemon' && customName && (
-          <h1 className="text-4xl font-bold mt-6 text-gray-900 dark:text-gray-100">
-           " {customName} "
+        {isMyPokemon && customName && (
+          <h1 className="text-4xl font-black text-gray-900 dark:text-gray-100 tracking-tight">
+            "{customName}"
           </h1>
         )}
 
-        <h2 className={`
-          ${variant === 'myPokemon' ? 'text-xl text-gray-600 dark:text-gray-400' : 'text-3xl font-bold text-gray-900 dark:text-gray-100 mt-6'}
-          capitalize
-        `}>
+        <h2 className={`capitalize font-semibold mt-1
+          ${isMyPokemon
+            ? 'text-lg text-gray-500 dark:text-gray-400'
+            : 'text-3xl font-bold text-gray-900 dark:text-gray-100 mt-4'
+          }`}
+        >
           {name}
         </h2>
 
-        <p className="text-gray-500 dark:text-gray-500 text-lg mt-2">
+        <span className="inline-block mt-1 text-sm font-mono text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 rounded-full">
           #{id.toString().padStart(3, '0')}
-        </p>
+        </span>
+
+        {/* Types */}
+        <div className="flex flex-wrap justify-center gap-2 mt-4">
+          {types.map((type) => (
+            <span
+              key={type}
+              className={`${typeColorMap[type] ?? 'bg-gray-400 text-white'} px-4 py-1 rounded-full text-sm font-semibold capitalize shadow-sm`}
+            >
+              {type}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {}
-      <div className="mb-6 text-center">
-  
+      <Divider />
 
-  <div className="flex flex-wrap justify-center gap-4">
-    {types.map((type) => (
-      <span
-        key={type}
-        className={`
-          ${typeColorMap[type] || 'bg-gray-400 text-white'}
-          px-4 py-2 rounded-full text-sm font-medium  capitalize
-        `}
-      >
-        {type}
-      </span>
-    ))}
-  </div>
-</div>
-
-      {}
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
-          Stats
-        </h3>
+      {/* Stats */}
+      <Section title="Stats">
         <div className="space-y-3">
           {Object.entries(stats).map(([statName, value]) => (
             <div key={statName}>
               <div className="flex justify-between mb-1">
-                <span className="text-sm font-medium capitalize text-gray-700 dark:text-gray-300">
+                <span className="text-sm font-medium capitalize text-gray-600 dark:text-gray-400">
                   {statName}
                 </span>
-                <span className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                <span className="text-sm font-bold tabular-nums text-gray-900 dark:text-gray-100">
                   {value}
+                  <span className="text-gray-400 dark:text-gray-600 font-normal"> / {maxStat}</span>
                 </span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700  h-2.5 overflow-hidden">
+              <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-red-400 to-blue-400 h-2.5  transition-all duration-500"
+                  className={`bg-gradient-to-r ${statColor[statName] ?? 'from-gray-400 to-gray-500'} h-2 rounded-full transition-all duration-500`}
                   style={{ width: `${(value / maxStat) * 100}%` }}
                 />
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </Section>
 
-      {}
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
-          Physical Attributes
-        </h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-gray-300/40 dark:bg-gray-800 flex justify-center items-center flex-col rounded-lg p-3 border-black/20 border-2 dark:border-white/20">
-            <p className="text-sm text-gray-600 dark:text-gray-400">Height</p>
-            <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              {(height / 10).toFixed(1)} m
-            </p>
-          </div>
-          <div className="bg-gray-300/40 dark:bg-gray-800 flex justify-center items-center flex-col rounded-lg p-3 border-black/20 border-2 dark:border-white/20">
-            <p className="text-sm text-gray-600 dark:text-gray-400">Weight</p>
-            <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              {(weight / 10).toFixed(1)} kg
-            </p>
-          </div>
+      <Divider />
+
+      {/* Physical */}
+      <Section title="Physical">
+        <div className="grid grid-cols-2 gap-3">
+          <StatBox label="Height" value={`${(height / 10).toFixed(1)} m`} />
+          <StatBox label="Weight" value={`${(weight / 10).toFixed(1)} kg`} />
         </div>
-      </div>
+      </Section>
 
-      {}
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
-          Abilities
-        </h3>
-        <ul className="space-y-2">
+      <Divider />
+
+      {/* Abilities */}
+      <Section title="Abilities">
+        <div className="flex flex-wrap gap-2">
           {abilities.map((ability) => (
-            <li
+            <span
               key={ability}
-              className="flex items-center text-gray-700 dark:text-gray-300"
+              className="capitalize px-3 py-1.5 rounded-lg text-sm font-medium
+                bg-gray-100 dark:bg-gray-800
+                text-gray-700 dark:text-gray-300
+                border border-gray-200 dark:border-gray-700"
             >
-              <span className="w-2 h-2 bg-gradient-to-r from-white to-gray-500 dark:bg-white  mr-3 transform rotate-45 border-2 dark:border-white border-black  " />
-              <span className="capitalize">{ability.replace('-', ' ')}</span>
-            </li>
+              {ability.replace('-', ' ')}
+            </span>
           ))}
-        </ul>
-      </div>
+        </div>
+      </Section>
 
-      {}
+      {/* Evolution Chain */}
       {evolutionChain && evolutionChain.length > 1 && (
-        <div className="mb-6 ">
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
-            Evolution Chain
-          </h3>
-          <div className="flex items-center gap-3 overflow-x-auto p-5">
-            {evolutionChain.map((evo, index) => (
-              <div key={evo.id} className="flex items-center gap-3 flex-shrink-0">
-                <Link
-                  to={`/pokemon/${evo.id}`}
-                  className={`
-                    flex flex-col items-center p-3 rounded-lg transition-all
-                    ${evo.id === id
-                      ? 'bg-blue-100 dark:bg-blue-900/30 ring-2 ring-blue-500'
-                      : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
-                    }
-                  `}
-                >
-                  <img
-                    src={getSpriteUrl(evo.id)}
-                    alt={evo.name}
-                    className="w-16 h-16 object-contain"
-                  />
-                  <span className="text-xs font-medium capitalize mt-1 text-gray-900 dark:text-gray-100">
-                    {evo.name}
-                  </span>
-                </Link>
-                {index < evolutionChain.length - 1 && (
-                  <span className="text-gray-400 dark:text-gray-600 text-2xl">→</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
+        <>
+          <Divider />
+          <Section title="Evolution Chain">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 justify-center">
+              {evolutionChain.map((evo, index) => (
+                <div key={evo.id} className="flex items-center gap-2 flex-shrink-0 py-4 ">
+                  <Link
+                    to={`/pokemon/${evo.id}`}
+                    className={`flex flex-col items-center p-3 rounded-xl transition-all duration-150
+                      ${evo.id === id
+                        ? 'bg-blue-50 dark:bg-blue-900/30 ring-2 ring-blue-400 dark:ring-blue-500'
+                        : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 hover:-translate-y-0.5'
+                      }`}
+                  >
+                    <img
+                      src={getSpriteUrl(evo.id)}
+                      alt={evo.name}
+                      className="w-16 h-16 object-contain"
+                    />
+                    <span className="text-xs font-semibold capitalize mt-1 text-gray-800 dark:text-gray-200">
+                      {evo.name}
+                    </span>
+                  </Link>
+                  {index < evolutionChain.length - 1 && (
+                    <span className="text-gray-300 dark:text-gray-600 text-xl select-none">›</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Section>
+        </>
       )}
 
-      {}
-      {variant === 'myPokemon' && caughtAt && (
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">
-            Caught At
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400">
-            {new Date(caughtAt).toLocaleString()}
-          </p>
-        </div>
+      {/* Caught At */}
+      {isMyPokemon && caughtAt && (
+        <>
+          <Divider />
+          <Section title="Caught At">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {new Date(caughtAt).toLocaleString(undefined, {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+              })}
+            </p>
+          </Section>
+        </>
       )}
 
-      {}
-      {variant === 'myPokemon' && onFree && (
+      {/* Free button */}
+      {isMyPokemon && onFree && (
         <button
           onClick={onFree}
-          className="w-full bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 mt-8"
+          className="w-full mt-4 py-4 rounded-xl font-bold text-white
+            bg-red-500 hover:bg-red-600 active:scale-95
+            transition-all duration-150 shadow-md shadow-red-200 dark:shadow-none"
         >
-          FREE {customName}?
+          Release {customName ?? name}
         </button>
       )}
+    </div>
+  );
+}
+
+/* ── Small reusable sub-components ── */
+
+function Divider() {
+  return <hr className="border-gray-100 dark:border-gray-800" />;
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+        {title}
+      </h3>
+      {children}
+    </div>
+  );
+}
+
+function StatBox({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-0.5 rounded-xl p-4
+      bg-gray-50 dark:bg-gray-800
+      border border-gray-200 dark:border-gray-700"
+    >
+      <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">{label}</span>
+      <span className="text-lg font-bold text-gray-900 dark:text-gray-100">{value}</span>
     </div>
   );
 }

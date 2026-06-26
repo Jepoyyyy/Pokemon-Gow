@@ -37,11 +37,11 @@ export default function BottomNav() {
   aria-current={active ? 'page' : undefined}
   className={`
     text-decoration-none
-    ${active ? 'text-red-600 dark:text-red-400 scale-110 -translate-y-1' : 'text-gray-500 dark:text-gray-400 scale-100 translate-y-0'}
+    ${active ? 'text-red-600 dark:text-red-400' : 'text-gray-500 dark:text-gray-400 '}
     flex flex-col items-center p-2 min-w-[60px]
     text-sm font-${active ? 'bold' : 'normal'}
     ${active ? 'bg-red-100 dark:bg-red-900/30' : ''}
-    
+
     focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-lg
     transition-all duration-200
   `}

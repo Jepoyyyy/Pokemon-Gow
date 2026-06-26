@@ -7,7 +7,6 @@ import PokemonCard from '../components/pokemon/PokemonCard';
 import LoadingPokeball from '../components/ui/LoadingPokeball';
 import { getListSpriteUrl } from '../utils/spriteUrl';
 import {ArrowBigRight,ArrowBigLeft} from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
 
 const ITEMS_PER_PAGE = 20;
 const LS_KEY = 'pokemon-home-page';
@@ -142,17 +141,12 @@ export default function HomePage() {
       </div>
     );
   }
-  const { theme, toggleTheme } = useTheme();  
 
   return (
     <div className="container mx-auto px-4 py-6">
 
       {}
-      <div className="mb-6 text-center">
-        <p className="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300">
-          Page {currentPage} of {totalPages}
-        </p>
-      </div>
+      
 
       {}
       <div className="grid grid-cols-2 gap-4 mb-6">
@@ -190,7 +184,11 @@ export default function HomePage() {
         >
          <ArrowBigLeft className="text-black dark:text-white" />
         </button>
-
+        <div className=" text-center">
+        <p className="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300">
+          Page {currentPage} of {totalPages}
+        </p>
+      </div>
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages}

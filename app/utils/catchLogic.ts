@@ -1,5 +1,3 @@
-
-
 export const attemptCatch = (): boolean => {
   return Math.random() < 0.5;
 };

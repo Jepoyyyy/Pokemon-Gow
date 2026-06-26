@@ -85,7 +85,7 @@ export default function PokemonDetailPage() {
     <div className="container mx-auto px-4 py-6 max-w-full">
       <Link
         to={backUrl}
-        className="inline-flex rounder-xl border-0.5 border-black bg-black/20 dark:bg-white/20 p-2 items-center text-black dark:text-white hover:underline mb-6"
+        className="inline-flex rounded-xl  border-black hover:bg-black/40 bg-black/20 dark:bg-white/30 hover:dark:bg-white/40 p-3 items-center text-black dark:text-white hover:underline mb-6"
       >
         <ArrowBigLeft /> 
       </Link>

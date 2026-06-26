@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router';
 import { useMyPokemon } from '../context/MyPokemonContext';
@@ -7,6 +5,7 @@ import type { Route } from './+types/my-pokemon.$id';
 import type { MyPokemon } from '../types/pokemon';
 import PokemonDetail from '../components/pokemon/PokemonDetail';
 import { getDetailSpriteUrl } from '../utils/spriteUrl';
+import { ArrowBigLeft } from 'lucide-react';
 
 export function meta({ params }: Route.MetaArgs) {
   return [
@@ -24,6 +23,7 @@ export default function MyPokemonDetailPage() {
   const [pokemon, setPokemon] = useState<MyPokemon | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  // Find the pokemon by ID and custom name from query
   useEffect(() => {
     const id = parseInt(params.id || '0', 10);
     const customName = searchParams.get('name');
@@ -52,6 +52,7 @@ export default function MyPokemonDetailPage() {
     setShowConfirmModal(false);
   };
 
+  // Handle ESC key for modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && showConfirmModal) {
@@ -83,9 +84,9 @@ export default function MyPokemonDetailPage() {
     <div className="container mx-auto px-4 py-6 max-w-full">
       <Link
         to="/my-pokemon"
-        className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-6"
+        className="inline-flex rounded-xl  border-black hover:bg-black/40 bg-black/20 dark:bg-white/30 hover:dark:bg-white/40 p-3 items-center text-black dark:text-white hover:underline mb-6"
       >
-        ← Back to My Pokemon
+        <ArrowBigLeft /> 
       </Link>
 
       <PokemonDetail
@@ -103,7 +104,7 @@ export default function MyPokemonDetailPage() {
         onFree={handleFreeClick}
       />
 
-      {}
+      {/* Confirmation Modal */}
       {showConfirmModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full animate-[fade-in_0.3s_ease-out]">
