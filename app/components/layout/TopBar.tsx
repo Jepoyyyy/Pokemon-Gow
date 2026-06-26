@@ -19,7 +19,7 @@ const handleToggle = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex items-center justify-between px-5 py-3 border border-b-black">
+    <div className="flex items-center justify-between px-5 py-3 border border-b-black dark:border-b-white">
       <Link
         to="/home"
         className="no-underline hover:opacity-80 transition-opacity"
