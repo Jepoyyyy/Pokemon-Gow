@@ -17,6 +17,7 @@ import BottomNav from "./components/layout/BottomNav";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
+   { rel: "icon", href: "/favicon.svg" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
