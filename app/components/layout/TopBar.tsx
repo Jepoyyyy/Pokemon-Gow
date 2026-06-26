@@ -28,7 +28,7 @@ const handleToggle = () => {
       </Link>
 
       <div className="flex items-center gap-3">
-        <span className="text-lg text-black dark:white uppercase tracking-wider font-semibold">
+        <span className="text-lg text-black dark:text-white uppercase tracking-wider font-semibold">
           Catch & Collect!
         </span>
 
